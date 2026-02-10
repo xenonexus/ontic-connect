@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Rocket, Store, BookOpen, Settings, LogOut,
-  Lock, ShieldCheck, ChevronLeft, ChevronRight, Bell, Search, User
+  Lock, ShieldCheck, ChevronLeft, ChevronRight, Bell, Search, User, ArrowLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VerifiedBadge from "@/components/VerifiedBadge";
