@@ -1,55 +1,48 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  ShieldCheck, ArrowRight, Github, Users, Zap, Lock,
-  GraduationCap, Sparkles, Globe, CheckCircle2
-} from "lucide-react";
+import { ShieldCheck, ArrowRight, Github, Users, Zap, Lock, GraduationCap, Sparkles, Globe, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const features = [
-  {
-    icon: ShieldCheck,
-    title: "University-Only Access",
-    desc: "Every user verified via .edu email, phone OTP, and student ID — no fakes, no bots.",
-  },
-  {
-    icon: Zap,
-    title: "AI Project Mutation",
-    desc: "Drop a rough idea and our AI fills gaps, suggests sub-projects, and professionalizes your pitch.",
-  },
-  {
-    icon: Users,
-    title: "Smart Team Matching",
-    desc: "Find collaborators by verified skills, NPTEL certs, and GitHub activity — not just buzzwords.",
-  },
-  {
-    icon: Github,
-    title: "GitHub-Native Workflow",
-    desc: "Mandatory GitHub integration means every profile is backed by real code and real commits.",
-  },
-];
-
-const trustStats = [
-  { value: "100%", label: "Verified Users" },
-  { value: "9-Step", label: "Trust Protocol" },
-  { value: ".edu", label: "Email Only" },
-  { value: "0", label: "Fake Profiles" },
-];
-
+const features = [{
+  icon: ShieldCheck,
+  title: "University-Only Access",
+  desc: "Every user verified via .edu email, phone OTP, and student ID — no fakes, no bots."
+}, {
+  icon: Zap,
+  title: "AI Project Mutation",
+  desc: "Drop a rough idea and our AI fills gaps, suggests sub-projects, and professionalizes your pitch."
+}, {
+  icon: Users,
+  title: "Smart Team Matching",
+  desc: "Find collaborators by verified skills, NPTEL certs, and GitHub activity — not just buzzwords."
+}, {
+  icon: Github,
+  title: "GitHub-Native Workflow",
+  desc: "Mandatory GitHub integration means every profile is backed by real code and real commits."
+}];
+const trustStats = [{
+  value: "100%",
+  label: "Verified Users"
+}, {
+  value: "9-Step",
+  label: "Trust Protocol"
+}, {
+  value: ".edu",
+  label: "Email Only"
+}, {
+  value: "0",
+  label: "Fake Profiles"
+}];
 const LandingPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-
   const isEduEmail = email.endsWith(".edu") || email.endsWith(".edu.in") || email.endsWith(".ac.in");
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent">
-              <Lock className="h-4 w-4 text-accent-foreground" />
+              
             </div>
             <span className="text-lg font-bold tracking-tight">ONTIC</span>
           </div>
@@ -58,11 +51,7 @@ const LandingPage = () => {
             <span className="cursor-pointer hover:text-foreground transition-colors">Trust Protocol</span>
             <span className="cursor-pointer hover:text-foreground transition-colors">For Universities</span>
           </div>
-          <Button
-            size="sm"
-            className="bg-accent text-accent-foreground hover:bg-accent/90"
-            onClick={() => navigate("/onboarding")}
-          >
+          <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90" onClick={() => navigate("/onboarding")}>
             Get Verified
           </Button>
         </div>
@@ -91,48 +80,35 @@ const LandingPage = () => {
               <div className="flex gap-2 rounded-xl border border-border bg-card p-1.5 shadow-lg">
                 <div className="relative flex-1">
                   <GraduationCap className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <input
-                    type="email"
-                    placeholder="you@university.edu"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full rounded-lg bg-muted/50 py-2.5 pl-10 pr-3 text-sm outline-none placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-accent/40"
-                  />
+                  <input type="email" placeholder="you@university.edu" value={email} onChange={e => setEmail(e.target.value)} className="w-full rounded-lg bg-muted/50 py-2.5 pl-10 pr-3 text-sm outline-none placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-accent/40" />
                 </div>
-                <Button
-                  className="bg-accent text-accent-foreground hover:bg-accent/90 gap-1.5"
-                  onClick={() => navigate("/onboarding")}
-                >
+                <Button className="bg-accent text-accent-foreground hover:bg-accent/90 gap-1.5" onClick={() => navigate("/onboarding")}>
                   Start Verification <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>
-              {email && !isEduEmail && email.includes("@") && (
-                <p className="mt-2 text-xs text-destructive flex items-center gap-1 justify-center">
+              {email && !isEduEmail && email.includes("@") && <p className="mt-2 text-xs text-destructive flex items-center gap-1 justify-center">
                   <Lock className="h-3 w-3" /> Only .edu / .ac.in emails accepted
-                </p>
-              )}
-              {isEduEmail && (
-                <p className="mt-2 text-xs text-success flex items-center gap-1 justify-center">
+                </p>}
+              {isEduEmail && <p className="mt-2 text-xs text-success flex items-center gap-1 justify-center">
                   <CheckCircle2 className="h-3 w-3" /> University email detected ✓
-                </p>
-              )}
+                </p>}
             </div>
 
             {/* Trust stats */}
             <div className="flex items-center justify-center gap-8 md:gap-12 mt-12">
-              {trustStats.map((stat) => (
-                <div key={stat.label} className="text-center">
+              {trustStats.map(stat => <div key={stat.label} className="text-center">
                   <div className="text-2xl md:text-3xl font-bold text-foreground">{stat.value}</div>
                   <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
-                </div>
-              ))}
+                </div>)}
             </div>
           </div>
         </div>
 
         {/* Decorative elements */}
         <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-accent/5 blur-3xl animate-float" />
-        <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-highlight/5 blur-3xl animate-float" style={{ animationDelay: "3s" }} />
+        <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-highlight/5 blur-3xl animate-float" style={{
+        animationDelay: "3s"
+      }} />
       </section>
 
       {/* Features */}
@@ -145,15 +121,13 @@ const LandingPage = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {features.map((f) => (
-              <div key={f.title} className="glass-card p-6 group hover:border-accent/30 transition-all duration-300">
+            {features.map(f => <div key={f.title} className="glass-card p-6 group hover:border-accent/30 transition-all duration-300">
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent mb-4 group-hover:trust-glow transition-all">
                   <f.icon className="h-5 w-5" />
                 </div>
                 <h3 className="font-semibold text-lg mb-2">{f.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
@@ -169,11 +143,7 @@ const LandingPage = () => {
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">
             Complete the 9-step verification and join a community where every profile is real.
           </p>
-          <Button
-            size="lg"
-            className="bg-accent text-accent-foreground hover:bg-accent/90 gap-2"
-            onClick={() => navigate("/onboarding")}
-          >
+          <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 gap-2" onClick={() => navigate("/onboarding")}>
             <ShieldCheck className="h-5 w-5" /> Begin Verification
           </Button>
         </div>
@@ -193,8 +163,6 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default LandingPage;
