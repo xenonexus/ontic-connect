@@ -233,7 +233,12 @@ const OnboardingPage = () => {
       {/* Right: Form */}
       <div className="flex-1 flex items-center justify-center p-6">
         <div className="w-full max-w-md">
-          {/* Mobile progress */}
+          {/* Mobile back + progress */}
+          <div className="lg:hidden mb-4">
+            <button onClick={() => navigate("/")} className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors text-sm mb-4">
+              <Home className="h-4 w-4" /> Home
+            </button>
+          </div>
           <div className="lg:hidden mb-8">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium">Step {current + 1} of 9</span>
