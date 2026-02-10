@@ -78,7 +78,9 @@ const DashboardLayout = () => {
         {/* Top bar */}
         <header className="h-16 border-b border-border flex items-center justify-between px-6 bg-background/80 backdrop-blur-sm">
           <div className="flex items-center gap-3">
-            <div className="relative">
+            <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-muted-foreground hover:text-foreground">
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input
                 className="w-64 rounded-lg bg-muted/50 py-2 pl-10 pr-3 text-sm outline-none placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-accent/40"
