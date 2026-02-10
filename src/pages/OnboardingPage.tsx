@@ -70,6 +70,18 @@ const OnboardingPage = () => {
       case 3:
         return (
           <div className="space-y-4">
+            {/* Profile Picture */}
+            <div className="flex flex-col items-center gap-3 mb-2">
+              <div className="relative group cursor-pointer">
+                <div className="h-20 w-20 rounded-full bg-muted border-2 border-dashed border-border flex items-center justify-center hover:border-accent/50 transition-colors">
+                  <Camera className="h-6 w-6 text-muted-foreground group-hover:text-accent transition-colors" />
+                </div>
+                <div className="absolute bottom-0 right-0 h-6 w-6 rounded-full bg-accent flex items-center justify-center">
+                  <span className="text-accent-foreground text-xs font-bold">+</span>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground">Upload a profile picture</p>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div><Label>First Name</Label><Input placeholder="Arjun" /></div>
               <div><Label>Last Name</Label><Input placeholder="Patel" /></div>
