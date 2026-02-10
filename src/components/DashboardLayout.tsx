@@ -86,7 +86,7 @@ const DashboardLayout = () => {
                 className="w-64 rounded-lg bg-muted/50 py-2 pl-10 pr-3 text-sm outline-none placeholder:text-muted-foreground/60 focus:ring-2 focus:ring-accent/40"
                 placeholder="Search projects, people..."
               />
-            </div>
+            <div className="relative">
           </div>
           <div className="flex items-center gap-3">
             <VerifiedBadge />
