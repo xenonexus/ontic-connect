@@ -132,6 +132,17 @@ const OnboardingPage = () => {
               <Github className="h-4 w-4" /> Connect GitHub Account
             </Button>
             <p className="text-xs text-muted-foreground">GitHub integration is mandatory for profile verification.</p>
+
+            <div className="pt-4 border-t border-border">
+              <Label>X (Twitter) Profile <span className="text-muted-foreground font-normal">(optional)</span></Label>
+              <div className="flex gap-2 items-center mt-2">
+                <Twitter className="h-5 w-5 text-muted-foreground" />
+                <Input placeholder="@your_handle" />
+              </div>
+              <Button variant="outline" className="w-full gap-2 mt-2">
+                <Twitter className="h-4 w-4" /> Link X Account
+              </Button>
+            </div>
           </div>
         );
       case 7:
