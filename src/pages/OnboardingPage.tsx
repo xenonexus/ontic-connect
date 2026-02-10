@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Mail, Phone, CreditCard, GraduationCap, Github, Code2,
-  User, FileText, ShieldCheck, ArrowRight, ArrowLeft, Check, Lock
+  User, FileText, ShieldCheck, ArrowRight, ArrowLeft, Check, Lock, Twitter, Camera, Home
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -70,6 +70,18 @@ const OnboardingPage = () => {
       case 3:
         return (
           <div className="space-y-4">
+            {/* Profile Picture */}
+            <div className="flex flex-col items-center gap-3 mb-2">
+              <div className="relative group cursor-pointer">
+                <div className="h-20 w-20 rounded-full bg-muted border-2 border-dashed border-border flex items-center justify-center hover:border-accent/50 transition-colors">
+                  <Camera className="h-6 w-6 text-muted-foreground group-hover:text-accent transition-colors" />
+                </div>
+                <div className="absolute bottom-0 right-0 h-6 w-6 rounded-full bg-accent flex items-center justify-center">
+                  <span className="text-accent-foreground text-xs font-bold">+</span>
+                </div>
+              </div>
+              <p className="text-xs text-muted-foreground">Upload a profile picture</p>
+            </div>
             <div className="grid grid-cols-2 gap-4">
               <div><Label>First Name</Label><Input placeholder="Arjun" /></div>
               <div><Label>Last Name</Label><Input placeholder="Patel" /></div>
@@ -120,6 +132,17 @@ const OnboardingPage = () => {
               <Github className="h-4 w-4" /> Connect GitHub Account
             </Button>
             <p className="text-xs text-muted-foreground">GitHub integration is mandatory for profile verification.</p>
+
+            <div className="pt-4 border-t border-border">
+              <Label>X (Twitter) Profile <span className="text-muted-foreground font-normal">(optional)</span></Label>
+              <div className="flex gap-2 items-center mt-2">
+                <Twitter className="h-5 w-5 text-muted-foreground" />
+                <Input placeholder="@your_handle" />
+              </div>
+              <Button variant="outline" className="w-full gap-2 mt-2">
+                <Twitter className="h-4 w-4" /> Link X Account
+              </Button>
+            </div>
           </div>
         );
       case 7:
@@ -173,6 +196,9 @@ const OnboardingPage = () => {
     <div className="min-h-screen bg-background flex">
       {/* Left: Step sidebar */}
       <div className="hidden lg:flex w-80 border-r border-border bg-muted/30 flex-col p-6">
+        <button onClick={() => navigate("/")} className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm mb-6">
+          <ArrowLeft className="h-4 w-4" /> Back to Home
+        </button>
         <div className="flex items-center gap-2 mb-10">
           <Lock className="h-5 w-5 text-accent" />
           <span className="font-bold text-lg">ONTIC</span>
@@ -207,7 +233,12 @@ const OnboardingPage = () => {
       {/* Right: Form */}
       <div className="flex-1 flex items-center justify-center p-6">
         <div className="w-full max-w-md">
-          {/* Mobile progress */}
+          {/* Mobile back + progress */}
+          <div className="lg:hidden mb-4">
+            <button onClick={() => navigate("/")} className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors text-sm mb-4">
+              <Home className="h-4 w-4" /> Home
+            </button>
+          </div>
           <div className="lg:hidden mb-8">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium">Step {current + 1} of 9</span>

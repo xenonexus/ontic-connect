@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Rocket, Store, BookOpen, Settings, LogOut,
-  Lock, ShieldCheck, ChevronLeft, ChevronRight, Bell, Search, User
+  Lock, ShieldCheck, ChevronLeft, ChevronRight, Bell, Search, User, ArrowLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VerifiedBadge from "@/components/VerifiedBadge";
@@ -78,6 +78,9 @@ const DashboardLayout = () => {
         {/* Top bar */}
         <header className="h-16 border-b border-border flex items-center justify-between px-6 bg-background/80 backdrop-blur-sm">
           <div className="flex items-center gap-3">
+            <Button variant="ghost" size="icon" onClick={() => navigate(-1)} className="text-muted-foreground hover:text-foreground">
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input
