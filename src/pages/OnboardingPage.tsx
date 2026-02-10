@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Mail, Phone, CreditCard, GraduationCap, Github, Code2,
-  User, FileText, ShieldCheck, ArrowRight, ArrowLeft, Check, Lock
+  User, FileText, ShieldCheck, ArrowRight, ArrowLeft, Check, Lock, Twitter, Camera, Home
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
