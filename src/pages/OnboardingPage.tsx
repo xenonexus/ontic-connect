@@ -196,6 +196,9 @@ const OnboardingPage = () => {
     <div className="min-h-screen bg-background flex">
       {/* Left: Step sidebar */}
       <div className="hidden lg:flex w-80 border-r border-border bg-muted/30 flex-col p-6">
+        <button onClick={() => navigate("/")} className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm mb-6">
+          <ArrowLeft className="h-4 w-4" /> Back to Home
+        </button>
         <div className="flex items-center gap-2 mb-10">
           <Lock className="h-5 w-5 text-accent" />
           <span className="font-bold text-lg">ONTIC</span>
