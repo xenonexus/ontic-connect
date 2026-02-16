@@ -11,9 +11,23 @@ const STEPS = [
 
 interface StepIndicatorProps {
   currentStep: number;
+  highestCompleted?: number;
+  onStepClick?: (step: number) => void;
 }
 
-const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
+const StepIndicator = ({ currentStep, highestCompleted = 0, onStepClick }: StepIndicatorProps) => {
+  const lastStepIndex = STEPS.length - 1;
+
+  const handleClick = (stepNum: number) => {
+    if (!onStepClick) return;
+    // Allow clicking completed steps or the review step if at least 1 step is completed
+    const isCompleted = stepNum < currentStep;
+    const isReviewAccessible = stepNum === STEPS.length && highestCompleted >= 1;
+    if (isCompleted || isReviewAccessible) {
+      onStepClick(stepNum);
+    }
+  };
+
   return (
     <div className="w-full">
       <div className="flex items-center justify-between">
@@ -21,6 +35,8 @@ const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
           const stepNum = i + 1;
           const isCompleted = stepNum < currentStep;
           const isActive = stepNum === currentStep;
+          const isReviewAccessible = stepNum === STEPS.length && highestCompleted >= 1 && !isActive && !isCompleted;
+          const isClickable = isCompleted || isReviewAccessible;
 
           return (
             <div key={label} className="flex flex-1 flex-col items-center">
@@ -31,15 +47,19 @@ const StepIndicator = ({ currentStep }: StepIndicatorProps) => {
                   </div>
                 )}
                 <motion.div
-                  className={`step-circle relative z-10 ${isCompleted ? "completed" : isActive ? "active" : "upcoming"}`}
+                  className={`step-circle relative z-10 ${isCompleted ? "completed" : isActive ? "active" : isReviewAccessible ? "review-accessible" : "upcoming"} ${isClickable ? "cursor-pointer" : ""}`}
                   initial={false}
                   animate={isActive ? { scale: [1, 1.05, 1] } : {}}
                   transition={{ duration: 2, repeat: Infinity }}
+                  onClick={() => handleClick(stepNum)}
                 >
                   {isCompleted ? <Check className="h-5 w-5" /> : stepNum}
                 </motion.div>
               </div>
-              <span className={`mt-2 hidden text-center text-xs font-medium md:block ${isActive ? "text-accent" : "text-muted-foreground"}`}>
+              <span
+                className={`mt-2 hidden text-center text-xs font-medium md:block ${isActive ? "text-accent" : isClickable ? "text-accent/70 cursor-pointer" : "text-muted-foreground"}`}
+                onClick={() => handleClick(stepNum)}
+              >
                 {label}
               </span>
             </div>
