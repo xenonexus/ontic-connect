@@ -2,8 +2,9 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Mail, User, Share2, FileText, ShieldCheck,
-  ArrowRight, ArrowLeft, Check, Lock, Home,
+  ArrowRight, ArrowLeft, Lock, Home,
 } from "lucide-react";
+import StepIndicator from "@/components/onboarding/StepIndicator";
 import { Button } from "@/components/ui/button";
 import StepUniversityEmail from "@/components/onboarding/StepUniversityEmail";
 import StepPersonalInfo from "@/components/onboarding/StepPersonalInfo";
@@ -86,28 +87,8 @@ const OnboardingPage = () => {
           <Lock className="h-5 w-5 text-accent" />
           <span className="font-bold text-lg">ONTIC</span>
         </div>
-        <div className="space-y-1 flex-1">
-          {steps.map((step, i) => (
-            <button
-              key={i}
-              onClick={() => { if (i <= current) setCurrent(i); }}
-              disabled={i > current}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all text-left ${
-                i === current
-                  ? "bg-accent/10 text-accent font-medium"
-                  : i < current
-                  ? "text-success cursor-pointer"
-                  : "text-muted-foreground opacity-50 cursor-not-allowed"
-              }`}
-            >
-              <div className={`flex h-7 w-7 items-center justify-center rounded-md text-xs font-semibold ${
-                i === current ? "bg-accent text-accent-foreground" : i < current ? "bg-success/10 text-success" : "bg-muted text-muted-foreground"
-              }`}>
-                {i < current ? <Check className="h-3.5 w-3.5" /> : i + 1}
-              </div>
-              <div className="leading-tight">{step.title}</div>
-            </button>
-          ))}
+        <div className="flex-1">
+          <StepIndicator currentStep={current + 1} />
         </div>
         <p className="text-xs text-muted-foreground">Step {current + 1} of {steps.length}</p>
       </div>
@@ -122,13 +103,7 @@ const OnboardingPage = () => {
             </button>
           </div>
           <div className="lg:hidden mb-8">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium">Step {current + 1} of {steps.length}</span>
-              <span className="text-xs text-muted-foreground">{Math.round(((current + 1) / steps.length) * 100)}%</span>
-            </div>
-            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
-              <div className="h-full bg-accent rounded-full transition-all duration-500" style={{ width: `${((current + 1) / steps.length) * 100}%` }} />
-            </div>
+            <StepIndicator currentStep={current + 1} />
           </div>
 
           <div className="mb-1 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
