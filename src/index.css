@@ -172,4 +172,10 @@
     background: hsl(var(--muted));
     color: hsl(var(--muted-foreground));
   }
+
+  .step-circle.review-accessible {
+    background: hsl(var(--accent) / 0.15);
+    color: hsl(var(--accent));
+    border: 1.5px dashed hsl(var(--accent) / 0.5);
+  }
 }

@@ -23,6 +23,7 @@ const steps = [
 const OnboardingPage = () => {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
+  const [highestCompleted, setHighestCompleted] = useState(0);
 
   // Step 1
   const [email, setEmail] = useState("");
@@ -60,8 +61,12 @@ const OnboardingPage = () => {
     }
   }, [current, email, idUploaded, firstName, lastName, university, program, degreeLevel, year, selectedSkills, linkedin]);
 
-  const next = () => setCurrent((p) => Math.min(p + 1, steps.length - 1));
+  const next = () => {
+    setHighestCompleted((h) => Math.max(h, current + 1));
+    setCurrent((p) => Math.min(p + 1, steps.length - 1));
+  };
   const prev = () => setCurrent((p) => Math.max(p - 1, 0));
+  const goToStep = (stepNum: number) => setCurrent(stepNum - 1);
 
   const renderStepContent = () => {
     switch (current) {
@@ -91,7 +96,7 @@ const OnboardingPage = () => {
 
       {/* Step indicator centered */}
       <div className="w-full max-w-2xl mx-auto px-6 pt-6">
-        <StepIndicator currentStep={current + 1} />
+        <StepIndicator currentStep={current + 1} highestCompleted={highestCompleted} onStepClick={goToStep} />
       </div>
 
       {/* Form content */}
