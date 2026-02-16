@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Mail, User, Share2, FileText, ShieldCheck,
-  ArrowRight, ArrowLeft, Lock, Home,
+  ArrowRight, ArrowLeft, Lock,
 } from "lucide-react";
 import StepIndicator from "@/components/onboarding/StepIndicator";
 import { Button } from "@/components/ui/button";
@@ -77,35 +77,26 @@ const OnboardingPage = () => {
   const lastStep = steps.length - 1;
 
   return (
-    <div className="min-h-screen bg-background flex">
-      {/* Left: Step sidebar */}
-      <div className="hidden lg:flex w-80 border-r border-border bg-muted/30 flex-col p-6">
-        <button onClick={() => navigate("/")} className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm mb-6">
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Top bar: back + logo */}
+      <div className="flex items-center justify-between px-6 pt-6">
+        <button onClick={() => navigate("/")} className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
           <ArrowLeft className="h-4 w-4" /> Back to Home
         </button>
-        <div className="flex items-center gap-2 mb-10">
+        <div className="flex items-center gap-2">
           <Lock className="h-5 w-5 text-accent" />
           <span className="font-bold text-lg">ONTIC</span>
         </div>
-        <div className="flex-1">
-          <StepIndicator currentStep={current + 1} />
-        </div>
-        <p className="text-xs text-muted-foreground">Step {current + 1} of {steps.length}</p>
       </div>
 
-      {/* Right: Form */}
-      <div className="flex-1 flex items-start lg:items-center justify-center p-6 overflow-y-auto">
-        <div className="w-full max-w-md py-6">
-          {/* Mobile nav */}
-          <div className="lg:hidden mb-4">
-            <button onClick={() => navigate("/")} className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors text-sm mb-4">
-              <Home className="h-4 w-4" /> Home
-            </button>
-          </div>
-          <div className="lg:hidden mb-8">
-            <StepIndicator currentStep={current + 1} />
-          </div>
+      {/* Step indicator centered */}
+      <div className="w-full max-w-2xl mx-auto px-6 pt-6">
+        <StepIndicator currentStep={current + 1} />
+      </div>
 
+      {/* Form content */}
+      <div className="flex-1 flex items-start justify-center p-6 overflow-y-auto">
+        <div className="w-full max-w-md py-6">
           <div className="mb-1 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
             {(() => { const Icon = steps[current].icon; return <Icon className="h-5 w-5" />; })()}
           </div>
