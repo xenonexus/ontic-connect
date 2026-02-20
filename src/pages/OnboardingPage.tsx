@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Mail, User, Share2, FileText, ShieldCheck,
+  Mail, User, Share2, ShieldCheck,
   ArrowRight, ArrowLeft, Lock,
 } from "lucide-react";
 import StepIndicator from "@/components/onboarding/StepIndicator";
@@ -9,14 +9,13 @@ import { Button } from "@/components/ui/button";
 import StepUniversityEmail from "@/components/onboarding/StepUniversityEmail";
 import StepPersonalInfo from "@/components/onboarding/StepPersonalInfo";
 import StepSocialMedia from "@/components/onboarding/StepSocialMedia";
-import StepNPTELCerts from "@/components/onboarding/StepNPTELCerts";
 import StepReview from "@/components/onboarding/StepReview";
+
 
 const steps = [
   { icon: Mail, title: "University Email & ID", desc: "Verify your email and upload student ID" },
   { icon: User, title: "Personal Info", desc: "Profile, degree, and skills" },
   { icon: Share2, title: "Social Media", desc: "Connect your professional profiles" },
-  { icon: FileText, title: "NPTEL / Certs", desc: "Add course certifications (optional)" },
   { icon: ShieldCheck, title: "Review & Confirm", desc: "Finalize your trusted profile" },
 ];
 
@@ -44,19 +43,18 @@ const OnboardingPage = () => {
   const [twitter, setTwitter] = useState("");
   const [github, setGithub] = useState("");
 
-  // Step 4
-  const [nptelCourse, setNptelCourse] = useState("");
 
   const toggleSkill = (s: string) =>
-    setSelectedSkills((prev) => prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]);
+    setSelectedSkills((prev) =>
+      prev.includes(s) ? prev.filter((x) => x !== s) : prev.length < 6 ? [...prev, s] : prev
+    );
 
   const canContinue = useMemo(() => {
     switch (current) {
       case 0: return email.includes("@") && email.includes(".edu") && idUploaded;
-      case 1: return firstName.trim() !== "" && lastName.trim() !== "" && university.trim() !== "" && program.trim() !== "" && degreeLevel !== "" && year !== "" && selectedSkills.length > 0;
+      case 1: return firstName.trim() !== "" && lastName.trim() !== "" && university.trim() !== "" && program.trim() !== "" && degreeLevel !== "" && year !== "" && selectedSkills.length >= 1;
       case 2: return linkedin.trim() !== "";
-      case 3: return true; // optional
-      case 4: return true;
+      case 3: return true;
       default: return false;
     }
   }, [current, email, idUploaded, firstName, lastName, university, program, degreeLevel, year, selectedSkills, linkedin]);
@@ -73,11 +71,11 @@ const OnboardingPage = () => {
       case 0: return <StepUniversityEmail email={email} setEmail={setEmail} idUploaded={idUploaded} setIdUploaded={setIdUploaded} />;
       case 1: return <StepPersonalInfo firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} bio={bio} setBio={setBio} university={university} setUniversity={setUniversity} program={program} setProgram={setProgram} degreeLevel={degreeLevel} setDegreeLevel={setDegreeLevel} year={year} setYear={setYear} selectedSkills={selectedSkills} toggleSkill={toggleSkill} />;
       case 2: return <StepSocialMedia linkedin={linkedin} setLinkedin={setLinkedin} twitter={twitter} setTwitter={setTwitter} github={github} setGithub={setGithub} />;
-      case 3: return <StepNPTELCerts nptelCourse={nptelCourse} setNptelCourse={setNptelCourse} />;
-      case 4: return <StepReview firstName={firstName} lastName={lastName} email={email} selectedSkills={selectedSkills} linkedin={linkedin} twitter={twitter} github={github} nptelCourse={nptelCourse} idUploaded={idUploaded} />;
+      case 3: return <StepReview firstName={firstName} lastName={lastName} email={email} selectedSkills={selectedSkills} linkedin={linkedin} twitter={twitter} github={github} nptelCourse="" idUploaded={idUploaded} />;
       default: return null;
     }
   };
+
 
   const lastStep = steps.length - 1;
 

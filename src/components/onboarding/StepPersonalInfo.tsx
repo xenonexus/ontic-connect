@@ -20,11 +20,8 @@ const skillCategories = [
   },
 ];
 
-const yearOptions: Record<string, string[]> = {
-  UG: ["1st Year", "2nd Year", "3rd Year", "4th Year"],
-  Masters: ["1st Year", "2nd Year"],
-  PhD: ["1st Year", "2nd Year", "3rd Year", "4th Year", "5th+ Year"],
-};
+const graduationYears = ["2024", "2025", "2026", "2027", "2028", "2029", "2030"];
+
 
 interface Props {
   firstName: string; setFirstName: (v: string) => void;
@@ -82,11 +79,11 @@ const StepPersonalInfo = ({
           </Select>
         </div>
         <div>
-          <Label>Year</Label>
-          <Select value={year} onValueChange={setYear} disabled={!degreeLevel}>
+          <Label>Year of Graduation</Label>
+          <Select value={year} onValueChange={setYear}>
             <SelectTrigger><SelectValue placeholder="Select year" /></SelectTrigger>
             <SelectContent>
-              {(yearOptions[degreeLevel] || []).map((y) => (
+              {graduationYears.map((y) => (
                 <SelectItem key={y} value={y}>{y}</SelectItem>
               ))}
             </SelectContent>
@@ -119,7 +116,7 @@ const StepPersonalInfo = ({
           </div>
         </div>
       ))}
-      <p className="text-xs text-muted-foreground">Select at least one skill to continue.</p>
+      <p className="text-xs text-muted-foreground">Select 1–6 skills to continue.</p>
     </div>
   </div>
 );
