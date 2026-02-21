@@ -13,7 +13,7 @@ import StepReview from "@/components/onboarding/StepReview";
 
 
 const steps = [
-  { icon: Mail, title: "University Email & ID", desc: "Verify your email and upload student ID" },
+  { icon: Mail, title: "University Email", desc: "Verify your university email address" },
   { icon: User, title: "Personal Info", desc: "Profile, degree, and skills" },
   { icon: Share2, title: "Social Media", desc: "Connect your professional profiles" },
   { icon: ShieldCheck, title: "Review & Confirm", desc: "Finalize your trusted profile" },
@@ -26,7 +26,6 @@ const OnboardingPage = () => {
 
   // Step 1
   const [email, setEmail] = useState("");
-  const [idUploaded, setIdUploaded] = useState(false);
 
   // Step 2
   const [firstName, setFirstName] = useState("");
@@ -51,13 +50,13 @@ const OnboardingPage = () => {
 
   const canContinue = useMemo(() => {
     switch (current) {
-      case 0: return email.includes("@") && email.includes(".edu") && idUploaded;
+      case 0: return email.includes("@") && email.includes(".edu");
       case 1: return firstName.trim() !== "" && lastName.trim() !== "" && university.trim() !== "" && program.trim() !== "" && degreeLevel !== "" && year !== "" && selectedSkills.length >= 1;
       case 2: return linkedin.trim() !== "";
       case 3: return true;
       default: return false;
     }
-  }, [current, email, idUploaded, firstName, lastName, university, program, degreeLevel, year, selectedSkills, linkedin]);
+  }, [current, email, firstName, lastName, university, program, degreeLevel, year, selectedSkills, linkedin]);
 
   const next = () => {
     setHighestCompleted((h) => Math.max(h, current + 1));
@@ -68,10 +67,10 @@ const OnboardingPage = () => {
 
   const renderStepContent = () => {
     switch (current) {
-      case 0: return <StepUniversityEmail email={email} setEmail={setEmail} idUploaded={idUploaded} setIdUploaded={setIdUploaded} />;
+      case 0: return <StepUniversityEmail email={email} setEmail={setEmail} />;
       case 1: return <StepPersonalInfo firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} bio={bio} setBio={setBio} university={university} setUniversity={setUniversity} program={program} setProgram={setProgram} degreeLevel={degreeLevel} setDegreeLevel={setDegreeLevel} year={year} setYear={setYear} selectedSkills={selectedSkills} toggleSkill={toggleSkill} />;
       case 2: return <StepSocialMedia linkedin={linkedin} setLinkedin={setLinkedin} twitter={twitter} setTwitter={setTwitter} github={github} setGithub={setGithub} />;
-      case 3: return <StepReview firstName={firstName} lastName={lastName} email={email} selectedSkills={selectedSkills} linkedin={linkedin} twitter={twitter} github={github} nptelCourse="" idUploaded={idUploaded} />;
+      case 3: return <StepReview firstName={firstName} lastName={lastName} email={email} selectedSkills={selectedSkills} linkedin={linkedin} twitter={twitter} github={github} />;
       default: return null;
     }
   };
