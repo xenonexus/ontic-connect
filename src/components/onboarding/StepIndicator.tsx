@@ -2,10 +2,9 @@ import { Check } from "lucide-react";
 import { motion } from "framer-motion";
 
 const STEPS = [
-  "University Email & ID",
+  "University Email",
   "Personal Info",
   "Social Media",
-  "NPTEL / Certs",
   "Review & Confirm",
 ];
 
@@ -67,7 +66,7 @@ const StepIndicator = ({ currentStep, highestCompleted = 0, onStepClick }: StepI
         })}
       </div>
       <p className="mt-4 text-center text-sm text-muted-foreground">
-        Step {currentStep} of 5
+        Step {currentStep} of {STEPS.length}
       </p>
     </div>
   );

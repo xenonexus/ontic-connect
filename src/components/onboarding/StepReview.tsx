@@ -8,19 +8,15 @@ interface Props {
   linkedin: string;
   twitter: string;
   github: string;
-  nptelCourse: string;
-  idUploaded: boolean;
 }
 
-const StepReview = ({ firstName, lastName, email, selectedSkills, linkedin, twitter, github, nptelCourse, idUploaded }: Props) => {
+const StepReview = ({ firstName, lastName, email, selectedSkills, linkedin, twitter, github }: Props) => {
   const name = `${firstName || "—"} ${lastName || "—"}`;
   const items = [
     { label: "Email verified", done: !!email },
-    { label: "Student ID uploaded", done: idUploaded },
     { label: "LinkedIn connected", done: !!linkedin },
     { label: "X connected", done: !!twitter },
     { label: "GitHub connected", done: !!github },
-    { label: "NPTEL certs added", done: !!nptelCourse },
   ];
 
   return (
@@ -43,9 +39,6 @@ const StepReview = ({ firstName, lastName, email, selectedSkills, linkedin, twit
             {selectedSkills.slice(0, 6).map((s) => (
               <span key={s} className="text-xs bg-muted px-2 py-0.5 rounded-md text-muted-foreground">{s}</span>
             ))}
-            {selectedSkills.length > 6 && (
-              <span className="text-xs text-muted-foreground">+{selectedSkills.length - 6} more</span>
-            )}
           </div>
         )}
       </div>
