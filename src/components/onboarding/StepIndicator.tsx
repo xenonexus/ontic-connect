@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 const STEPS = [
   "University Email",
+  "Credentials",
   "Personal Info",
   "Social Media",
   "Review & Confirm",
