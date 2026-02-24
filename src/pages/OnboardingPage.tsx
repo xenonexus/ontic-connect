@@ -42,6 +42,7 @@ const OnboardingPage = () => {
   const [degreeLevel, setDegreeLevel] = useState("");
   const [year, setYear] = useState("");
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
+  const [birthday, setBirthday] = useState<Date | undefined>(undefined);
 
   // Step 3
   const [linkedin, setLinkedin] = useState("");
@@ -76,7 +77,7 @@ const OnboardingPage = () => {
     switch (current) {
       case 0: return <StepUniversityEmail email={email} setEmail={setEmail} />;
       case 1: return <StepCredentials username={username} setUsername={setUsername} password={password} setPassword={setPassword} />;
-      case 2: return <StepPersonalInfo firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} bio={bio} setBio={setBio} university={university} setUniversity={setUniversity} program={program} setProgram={setProgram} degreeLevel={degreeLevel} setDegreeLevel={setDegreeLevel} year={year} setYear={setYear} selectedSkills={selectedSkills} toggleSkill={toggleSkill} />;
+      case 2: return <StepPersonalInfo firstName={firstName} setFirstName={setFirstName} lastName={lastName} setLastName={setLastName} bio={bio} setBio={setBio} birthday={birthday} setBirthday={setBirthday} university={university} setUniversity={setUniversity} program={program} setProgram={setProgram} degreeLevel={degreeLevel} setDegreeLevel={setDegreeLevel} year={year} setYear={setYear} selectedSkills={selectedSkills} toggleSkill={toggleSkill} />;
       case 3: return <StepSocialMedia linkedin={linkedin} setLinkedin={setLinkedin} twitter={twitter} setTwitter={setTwitter} github={github} setGithub={setGithub} />;
       case 4: return <StepReview firstName={firstName} lastName={lastName} email={email} selectedSkills={selectedSkills} linkedin={linkedin} twitter={twitter} github={github} />;
       default: return null;

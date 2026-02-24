@@ -1,6 +1,11 @@
-import { Camera } from "lucide-react";
+import { Camera, CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
@@ -27,6 +32,7 @@ interface Props {
   firstName: string; setFirstName: (v: string) => void;
   lastName: string; setLastName: (v: string) => void;
   bio: string; setBio: (v: string) => void;
+  birthday: Date | undefined; setBirthday: (v: Date | undefined) => void;
   university: string; setUniversity: (v: string) => void;
   program: string; setProgram: (v: string) => void;
   degreeLevel: string; setDegreeLevel: (v: string) => void;
@@ -36,7 +42,8 @@ interface Props {
 
 const StepPersonalInfo = ({
   firstName, setFirstName, lastName, setLastName,
-  bio, setBio, university, setUniversity, program, setProgram,
+  bio, setBio, birthday, setBirthday,
+  university, setUniversity, program, setProgram,
   degreeLevel, setDegreeLevel, year, setYear,
   selectedSkills, toggleSkill,
 }: Props) => (
@@ -60,6 +67,35 @@ const StepPersonalInfo = ({
       <div><Label>Last Name</Label><Input placeholder="Patel" value={lastName} onChange={(e) => setLastName(e.target.value)} /></div>
     </div>
     <div><Label>Bio</Label><Input placeholder="CS undergrad passionate about ML & open source" value={bio} onChange={(e) => setBio(e.target.value)} /></div>
+
+    {/* Birthday */}
+    <div className="space-y-1">
+      <Label>Birthday</Label>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            className={cn(
+              "w-full justify-start text-left font-normal",
+              !birthday && "text-muted-foreground"
+            )}
+          >
+            <CalendarIcon className="mr-2 h-4 w-4" />
+            {birthday ? format(birthday, "PPP") : <span>Pick your birthday</span>}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            mode="single"
+            selected={birthday}
+            onSelect={setBirthday}
+            disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
+            initialFocus
+            className={cn("p-3 pointer-events-auto")}
+          />
+        </PopoverContent>
+      </Popover>
+    </div>
 
     {/* Degree Info */}
     <div className="pt-4 border-t border-border space-y-4">
