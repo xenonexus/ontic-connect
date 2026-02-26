@@ -41,7 +41,7 @@ const DashboardHome = () => {
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Welcome Back, Arjun 👋</h1>
 
-      <div className="grid grid-cols-4 gap-4 items-start">
+      <div className="grid grid-cols-4 gap-4 items-stretch">
         {/* Active Projects – 9:16 vertical box */}
         <div className="col-span-1">
           <AspectRatio ratio={9 / 16}>
@@ -91,7 +91,7 @@ const DashboardHome = () => {
         </div>
 
         {/* Middle column – Network + Rating (16:9) and Active Posts below */}
-        <div className="col-span-2 flex flex-col gap-4">
+        <div className="col-span-2 flex flex-col gap-4 h-full">
           <div className="grid grid-cols-2 gap-4">
             {/* Your Network */}
             <AspectRatio ratio={16 / 9}>
@@ -148,7 +148,7 @@ const DashboardHome = () => {
           </div>
 
           {/* Active Posts */}
-          <div className="glass-card p-4 flex flex-col gap-3">
+          <div className="glass-card p-4 flex flex-col gap-3 flex-1">
             <div className="flex items-center gap-2">
               <FileText className="h-4 w-4 text-accent" />
               <h3 className="font-semibold text-sm">Active Posts</h3>
