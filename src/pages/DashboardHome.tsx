@@ -154,7 +154,7 @@ const DashboardHome = () => {
                 <FileText className="h-4 w-4 text-accent" />
                 <h3 className="font-semibold text-sm">Active Posts</h3>
               </div>
-              <span className="text-xs text-muted-foreground">{activePosts.length} unfulfilled</span>
+              
             </div>
             <div className="flex flex-col gap-2">
               {activePosts.map((post, i) =>
