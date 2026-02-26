@@ -85,56 +85,60 @@ const DashboardHome = () => {
           </AspectRatio>
         </div>
 
-        {/* Middle column – Rating + Network stacked */}
-        <div className="col-span-2 flex flex-col gap-4">
-          {/* Rating / Stats */}
-          <div className="glass-card p-5 flex flex-col gap-3">
-            <h3 className="font-semibold text-base">Your rating</h3>
-            <div className="flex items-center gap-2">
-              <div className="flex-1 h-12">
+        {/* Middle column – Rating + Network side by side as squares */}
+        <div className="col-span-2 grid grid-cols-2 gap-4">
+          {/* Your Network */}
+          <AspectRatio ratio={1}>
+            <div className="glass-card p-5 flex flex-col gap-3 h-full overflow-auto">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold text-base">Your Network</h3>
+                <span className="text-xs text-muted-foreground">5</span>
+              </div>
+              <div className="flex flex-wrap gap-2 mt-1">
+                {networkMembers.map((m, i) => (
+                  <div
+                    key={i}
+                    className={`h-10 w-10 rounded-full ${m.color} flex items-center justify-center text-xs font-semibold text-white cursor-pointer hover:scale-105 transition-transform`}
+                  >
+                    {m.initials}
+                  </div>
+                ))}
+                <div className="h-10 w-10 rounded-full border-2 border-dashed border-accent/40 flex items-center justify-center text-accent cursor-pointer hover:bg-accent/10 transition-colors">
+                  <Users className="h-4 w-4" />
+                </div>
+              </div>
+              <Button size="sm" variant="outline" className="text-xs mt-auto" onClick={() => navigate("/dashboard/ideosphere")}>
+                Find teammates
+              </Button>
+            </div>
+          </AspectRatio>
+
+          {/* Your Rating */}
+          <AspectRatio ratio={1}>
+            <div className="glass-card p-5 flex flex-col gap-3 h-full overflow-auto">
+              <h3 className="font-semibold text-base">Your Rating</h3>
+              <div className="flex items-center gap-2">
+                <div className="flex-1 h-12">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={ratingData}>
+                      <Line type="monotone" dataKey="v" stroke="hsl(var(--accent))" strokeWidth={2} dot={false} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="h-14 w-14 rounded-full border-4 border-accent/30 flex flex-col items-center justify-center shrink-0">
+                  <span className="text-lg font-bold leading-none">82</span>
+                  <Star className="h-3 w-3 text-accent mt-0.5" />
+                </div>
+              </div>
+              <div className="flex-1">
                 <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={ratingData}>
-                    <Line type="monotone" dataKey="v" stroke="hsl(var(--accent))" strokeWidth={2} dot={false} />
-                  </LineChart>
+                  <BarChart data={barData} barSize={6}>
+                    <Bar dataKey="v" fill="hsl(var(--accent) / 0.5)" radius={[2, 2, 0, 0]} />
+                  </BarChart>
                 </ResponsiveContainer>
               </div>
-              <div className="h-14 w-14 rounded-full border-4 border-accent/30 flex flex-col items-center justify-center shrink-0">
-                <span className="text-lg font-bold leading-none">82</span>
-                <Star className="h-3 w-3 text-accent mt-0.5" />
-              </div>
             </div>
-            <div className="h-8">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={barData} barSize={6}>
-                  <Bar dataKey="v" fill="hsl(var(--accent) / 0.5)" radius={[2, 2, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          {/* Your Network */}
-          <div className="glass-card p-5 flex flex-col gap-3">
-            <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-base">Your Network</h3>
-              <span className="text-xs text-muted-foreground">5 connections</span>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-1">
-              {networkMembers.map((m, i) => (
-                <div
-                  key={i}
-                  className={`h-10 w-10 rounded-full ${m.color} flex items-center justify-center text-xs font-semibold text-white cursor-pointer hover:scale-105 transition-transform`}
-                >
-                  {m.initials}
-                </div>
-              ))}
-              <div className="h-10 w-10 rounded-full border-2 border-dashed border-accent/40 flex items-center justify-center text-accent cursor-pointer hover:bg-accent/10 transition-colors">
-                <Users className="h-4 w-4" />
-              </div>
-            </div>
-            <Button size="sm" variant="outline" className="text-xs mt-1" onClick={() => navigate("/dashboard/ideosphere")}>
-              Find teammates
-            </Button>
-          </div>
+          </AspectRatio>
         </div>
 
         {/* Project Mutation – 9:16 vertical box */}
