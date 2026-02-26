@@ -95,7 +95,7 @@ const DashboardHome = () => {
           <div className="grid grid-cols-2 gap-4">
             {/* Your Network */}
             <AspectRatio ratio={16 / 9}>
-              <div className="glass-card p-4 flex flex-col gap-2 h-full overflow-auto">
+              <div className="glass-card p-4 flex flex-col gap-2 h-full overflow-hidden">
                 <div className="flex items-center justify-between">
                   <h3 className="font-semibold text-sm">Your Network</h3>
                   <span className="text-xs text-muted-foreground">5</span>
@@ -121,7 +121,7 @@ const DashboardHome = () => {
 
             {/* Your Rating */}
             <AspectRatio ratio={16 / 9}>
-              <div className="glass-card p-4 flex flex-col gap-2 h-full overflow-auto">
+              <div className="glass-card p-4 flex flex-col gap-2 h-full overflow-hidden">
                 <h3 className="font-semibold text-sm">Your Rating</h3>
                 <div className="flex items-center gap-2">
                   <div className="flex-1 h-10">
@@ -148,13 +148,10 @@ const DashboardHome = () => {
           </div>
 
           {/* Active Posts */}
-          <div className="glass-card p-4 gap-3 mx-0 my-[12px] flex-col flex items-center justify-end">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <FileText className="h-4 w-4 text-accent" />
-                <h3 className="font-semibold text-sm">Active Posts</h3>
-              </div>
-              
+          <div className="glass-card p-4 flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <FileText className="h-4 w-4 text-accent" />
+              <h3 className="font-semibold text-sm">Active Posts</h3>
             </div>
             <div className="flex flex-col gap-2">
               {activePosts.map((post, i) =>
