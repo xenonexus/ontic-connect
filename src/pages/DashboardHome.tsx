@@ -148,13 +148,13 @@ const DashboardHome = () => {
           </div>
 
           {/* Active Posts */}
-          <div className="glass-card p-4 gap-3 mx-0 my-[12px] flex-col flex items-center justify-end border py-[20px]">
+          <div className="glass-card p-4 gap-3 mx-0 my-[12px] flex-col flex items-center justify-end">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <FileText className="h-4 w-4 text-accent" />
                 <h3 className="font-semibold text-sm">Active Posts</h3>
               </div>
-              
+              <span className="text-xs text-muted-foreground">{activePosts.length} unfulfilled</span>
             </div>
             <div className="flex flex-col gap-2">
               {activePosts.map((post, i) =>
