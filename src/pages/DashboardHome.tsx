@@ -5,34 +5,34 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { LineChart, Line, BarChart, Bar, ResponsiveContainer } from "recharts";
 
 const timelineSteps = [
-  { label: "Start", done: true },
-  { label: "Milestone 1", done: true },
-  { label: "Milestone 2", done: true },
-  { label: "Milestone 3", done: false },
-  { label: "End", done: false },
-];
+{ label: "Start", done: true },
+{ label: "Milestone 1", done: true },
+{ label: "Milestone 2", done: true },
+{ label: "Milestone 3", done: false },
+{ label: "End", done: false }];
+
 
 const ratingData = [
-  { v: 40 }, { v: 55 }, { v: 45 }, { v: 60 }, { v: 50 }, { v: 65 }, { v: 58 },
-];
+{ v: 40 }, { v: 55 }, { v: 45 }, { v: 60 }, { v: 50 }, { v: 65 }, { v: 58 }];
+
 
 const barData = [
-  { v: 30 }, { v: 50 }, { v: 40 }, { v: 70 }, { v: 55 }, { v: 45 },
-];
+{ v: 30 }, { v: 50 }, { v: 40 }, { v: 70 }, { v: 55 }, { v: 45 }];
+
 
 const networkMembers = [
-  { initials: "AP", color: "bg-accent" },
-  { initials: "RK", color: "bg-highlight" },
-  { initials: "SM", color: "bg-muted-foreground/40" },
-  { initials: "VN", color: "bg-muted-foreground/30" },
-  { initials: "TJ", color: "bg-muted-foreground/20" },
-];
+{ initials: "AP", color: "bg-accent" },
+{ initials: "RK", color: "bg-highlight" },
+{ initials: "SM", color: "bg-muted-foreground/40" },
+{ initials: "VN", color: "bg-muted-foreground/30" },
+{ initials: "TJ", color: "bg-muted-foreground/20" }];
+
 
 const activePosts = [
-  { title: "ML Pipeline for Campus Analytics", abstract: "Looking for 2 backend devs to build real-time data ingestion...", needed: 2, applied: 3 },
-  { title: "Open-Source Study Timer App", abstract: "Need a UI/UX designer and a React dev for a pomodoro-based...", needed: 1, applied: 5 },
-  { title: "Blockchain-Based Certificate Verifier", abstract: "Seeking a Solidity developer to help with smart contract...", needed: 3, applied: 1 },
-];
+{ title: "ML Pipeline for Campus Analytics", abstract: "Looking for 2 backend devs to build real-time data ingestion...", needed: 2, applied: 3 },
+{ title: "Open-Source Study Timer App", abstract: "Need a UI/UX designer and a React dev for a pomodoro-based...", needed: 1, applied: 5 },
+{ title: "Blockchain-Based Certificate Verifier", abstract: "Seeking a Solidity developer to help with smart contract...", needed: 3, applied: 1 }];
+
 
 const DashboardHome = () => {
   const navigate = useNavigate();
@@ -68,22 +68,22 @@ const DashboardHome = () => {
               <div className="flex-1 flex flex-col justify-center">
                 <p className="text-xs font-medium text-muted-foreground mb-3">Timeline</p>
                 <div className="relative flex flex-col items-center gap-0">
-                  {timelineSteps.map((step, i) => (
-                    <div key={step.label} className="flex items-center gap-3 w-full">
+                  {timelineSteps.map((step, i) =>
+                  <div key={step.label} className="flex items-center gap-3 w-full">
                       <div className="flex flex-col items-center">
-                        {i > 0 && (
-                          <div className={`w-0.5 h-5 ${timelineSteps[i - 1].done ? "bg-accent" : "bg-muted-foreground/30"}`} />
-                        )}
+                        {i > 0 &&
+                      <div className={`w-0.5 h-5 ${timelineSteps[i - 1].done ? "bg-accent" : "bg-muted-foreground/30"}`} />
+                      }
                         <div className={`h-7 w-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white shrink-0 ${step.done ? "bg-accent" : "bg-muted-foreground/40"}`}>
                           {step.done ? "✓" : i + 1}
                         </div>
-                        {i < timelineSteps.length - 1 && (
-                          <div className={`w-0.5 h-5 ${step.done ? "bg-accent" : "bg-muted-foreground/30"}`} />
-                        )}
+                        {i < timelineSteps.length - 1 &&
+                      <div className={`w-0.5 h-5 ${step.done ? "bg-accent" : "bg-muted-foreground/30"}`} />
+                      }
                       </div>
                       <span className="text-xs text-muted-foreground">{step.label}</span>
                     </div>
-                  ))}
+                  )}
                 </div>
               </div>
             </div>
@@ -101,14 +101,14 @@ const DashboardHome = () => {
                   <span className="text-xs text-muted-foreground">5</span>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {networkMembers.map((m, i) => (
-                    <div
-                      key={i}
-                      className={`h-8 w-8 rounded-full ${m.color} flex items-center justify-center text-[10px] font-semibold text-white cursor-pointer hover:scale-105 transition-transform`}
-                    >
+                  {networkMembers.map((m, i) =>
+                  <div
+                    key={i}
+                    className={`h-8 w-8 rounded-full ${m.color} flex items-center justify-center text-[10px] font-semibold text-white cursor-pointer hover:scale-105 transition-transform`}>
+
                       {m.initials}
                     </div>
-                  ))}
+                  )}
                   <div className="h-8 w-8 rounded-full border-2 border-dashed border-accent/40 flex items-center justify-center text-accent cursor-pointer hover:bg-accent/10 transition-colors">
                     <Users className="h-3.5 w-3.5" />
                   </div>
@@ -148,7 +148,7 @@ const DashboardHome = () => {
           </div>
 
           {/* Active Posts */}
-          <div className="glass-card p-4 flex flex-col gap-3">
+          <div className="glass-card p-4 gap-3 mx-0 my-[12px] flex-col flex items-center justify-end">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <FileText className="h-4 w-4 text-accent" />
@@ -157,8 +157,8 @@ const DashboardHome = () => {
               <span className="text-xs text-muted-foreground">{activePosts.length} unfulfilled</span>
             </div>
             <div className="flex flex-col gap-2">
-              {activePosts.map((post, i) => (
-                <div key={i} className="rounded-lg bg-muted/40 p-3 flex items-start justify-between gap-3 cursor-pointer hover:bg-muted/60 transition-colors">
+              {activePosts.map((post, i) =>
+              <div key={i} className="rounded-lg bg-muted/40 p-3 flex items-start justify-between gap-3 cursor-pointer hover:bg-muted/60 transition-colors">
                   <div className="min-w-0">
                     <p className="text-xs font-medium truncate">{post.title}</p>
                     <p className="text-[10px] text-muted-foreground mt-0.5 line-clamp-1">{post.abstract}</p>
@@ -168,7 +168,7 @@ const DashboardHome = () => {
                     <span className="text-[10px] text-muted-foreground">/ {post.needed} needed</span>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
@@ -203,16 +203,16 @@ const DashboardHome = () => {
               <Button
                 size="sm"
                 className="bg-accent text-accent-foreground hover:bg-accent/90 gap-1 w-full mt-auto"
-                onClick={() => navigate("/dashboard/mutation")}
-              >
+                onClick={() => navigate("/dashboard/mutation")}>
+
                 <Sparkles className="h-3 w-3" /> Start Mutating
               </Button>
             </div>
           </AspectRatio>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default DashboardHome;
