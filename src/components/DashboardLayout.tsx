@@ -2,22 +2,44 @@ import { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Store, Settings, LogOut, CheckCircle2,
-  Lock, ShieldCheck, ChevronLeft, ChevronRight, Search, ArrowLeft
+  Lock, ShieldCheck, ChevronLeft, ChevronRight, Search, ArrowLeft,
+  Inbox, PenSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VerifiedBadge from "@/components/VerifiedBadge";
 
-const navItems = [
+const mainNavItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
   { icon: CheckCircle2, label: "Completed Projects", path: "/dashboard/completed" },
-  { icon: Store, label: "Ideasphere", path: "/dashboard/ideasphere" },
-  { icon: Settings, label: "Settings", path: "/dashboard/settings" },
+  { icon: Store, label: "Ideosphere", path: "/dashboard/ideasphere" },
+  { icon: Inbox, label: "Inbox", path: "/dashboard/inbox" },
+  { icon: PenSquare, label: "Create Post", path: "/dashboard/create-post" },
 ];
 
 const DashboardLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const renderNavButton = (item: typeof mainNavItems[0]) => {
+    const isActive = location.pathname === item.path;
+    return (
+      <button
+        key={item.path}
+        onClick={() => navigate(item.path)}
+        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
+          isActive
+            ? "bg-sidebar-accent text-sidebar-primary font-medium"
+            : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
+        }`}
+      >
+        <item.icon className="h-4 w-4 shrink-0" />
+        {!collapsed && <span>{item.label}</span>}
+      </button>
+    );
+  };
+
+  const settingsActive = location.pathname === "/dashboard/settings";
 
   return (
     <div className="flex min-h-screen w-full">
@@ -33,27 +55,22 @@ const DashboardLayout = () => {
 
         {/* Nav */}
         <nav className="flex-1 p-3 space-y-1">
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            return (
-              <button
-                key={item.path}
-                onClick={() => navigate(item.path)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
-                  isActive
-                    ? "bg-sidebar-accent text-sidebar-primary font-medium"
-                    : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
-                }`}
-              >
-                <item.icon className="h-4 w-4 shrink-0" />
-                {!collapsed && <span>{item.label}</span>}
-              </button>
-            );
-          })}
+          {mainNavItems.map(renderNavButton)}
         </nav>
 
-        {/* User + Collapse */}
+        {/* Settings + User + Collapse */}
         <div className="p-3 border-t border-sidebar-border space-y-2">
+          <button
+            onClick={() => navigate("/dashboard/settings")}
+            className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all ${
+              settingsActive
+                ? "bg-sidebar-accent text-sidebar-primary font-medium"
+                : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground"
+            }`}
+          >
+            <Settings className="h-4 w-4 shrink-0" />
+            {!collapsed && <span>Settings</span>}
+          </button>
           {!collapsed && (
             <div className="flex items-center gap-3 px-3 py-2">
               <div className="h-8 w-8 rounded-full bg-sidebar-accent flex items-center justify-center text-sidebar-primary text-sm font-semibold">AP</div>
