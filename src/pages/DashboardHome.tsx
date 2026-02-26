@@ -131,7 +131,7 @@ const DashboardHome = () => {
                 <Users className="h-4 w-4" />
               </div>
             </div>
-            <Button size="sm" variant="outline" className="text-xs mt-1" onClick={() => navigate("/dashboard/ideasphere")}>
+            <Button size="sm" variant="outline" className="text-xs mt-1" onClick={() => navigate("/dashboard/ideosphere")}>
               Find teammates
             </Button>
           </div>

@@ -11,7 +11,7 @@ import VerifiedBadge from "@/components/VerifiedBadge";
 const mainNavItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
   { icon: CheckCircle2, label: "Completed Projects", path: "/dashboard/completed" },
-  { icon: Store, label: "Ideosphere", path: "/dashboard/ideasphere" },
+  { icon: Store, label: "Ideosphere", path: "/dashboard/ideosphere" },
   { icon: Inbox, label: "Inbox", path: "/dashboard/inbox" },
   { icon: PenSquare, label: "Create Post", path: "/dashboard/create-post" },
 ];

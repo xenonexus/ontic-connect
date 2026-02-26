@@ -27,7 +27,7 @@ const App = () => (
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<DashboardHome />} />
             <Route path="mutation" element={<ProjectMutation />} />
-            <Route path="ideasphere" element={<Marketplace />} />
+            <Route path="ideosphere" element={<Marketplace />} />
             <Route path="completed" element={<CompletedProjects />} />
             <Route path="nptel" element={<NPTELConnect />} />
           </Route>
