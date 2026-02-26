@@ -9,6 +9,7 @@ import DashboardLayout from "./components/DashboardLayout";
 import DashboardHome from "./pages/DashboardHome";
 import ProjectMutation from "./pages/ProjectMutation";
 import Marketplace from "./pages/Marketplace";
+import CompletedProjects from "./pages/CompletedProjects";
 import NPTELConnect from "./pages/NPTELConnect";
 import NotFound from "./pages/NotFound";
 
@@ -26,7 +27,8 @@ const App = () => (
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<DashboardHome />} />
             <Route path="mutation" element={<ProjectMutation />} />
-            <Route path="marketplace" element={<Marketplace />} />
+            <Route path="ideasphere" element={<Marketplace />} />
+            <Route path="completed" element={<CompletedProjects />} />
             <Route path="nptel" element={<NPTELConnect />} />
           </Route>
           <Route path="*" element={<NotFound />} />
