@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
-  LayoutDashboard, Rocket, Store, Settings, LogOut,
-  Lock, ShieldCheck, ChevronLeft, ChevronRight, Bell, Search, User, ArrowLeft
+  LayoutDashboard, Store, Settings, LogOut, CheckCircle2,
+  Lock, ShieldCheck, ChevronLeft, ChevronRight, Search, ArrowLeft
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VerifiedBadge from "@/components/VerifiedBadge";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-  { icon: Rocket, label: "Project Mutation", path: "/dashboard/mutation" },
-  { icon: Store, label: "Marketplace", path: "/dashboard/marketplace" },
+  { icon: CheckCircle2, label: "Completed Projects", path: "/dashboard/completed" },
+  { icon: Store, label: "Ideasphere", path: "/dashboard/ideasphere" },
   { icon: Settings, label: "Settings", path: "/dashboard/settings" },
 ];
 
