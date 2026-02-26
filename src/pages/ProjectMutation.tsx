@@ -127,7 +127,7 @@ const ProjectMutation = () => {
           {/* Actions */}
           <div className="flex gap-3">
             <Button className="bg-accent text-accent-foreground hover:bg-accent/90 gap-1">
-              Post to Ideasphere <ArrowRight className="h-4 w-4" />
+              Post to Ideosphere <ArrowRight className="h-4 w-4" />
             </Button>
             <Button variant="outline" className="gap-1" onClick={handleReset}>
               <RotateCcw className="h-4 w-4" /> Start Over
