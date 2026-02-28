@@ -26,7 +26,7 @@ const trustStats = [{
   value: "100%",
   label: "Verified Users"
 }, {
-  value: "9-Step",
+  value: "5-Step",
   label: "Trust Protocol"
 }, {
   value: ".edu",
@@ -124,7 +124,7 @@ const LandingPage = () => {
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
               ONTIC connects verified university students for projects, hackathons,
-              and FYPs. No strangers — every member passes our 9-step trust protocol.
+              and FYPs. No strangers — every member passes our 5-step trust protocol.
             </p>
 
             {/* Email CTA */}
@@ -193,7 +193,7 @@ const LandingPage = () => {
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to build something real?</h2>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-            Complete the 9-step verification and join a community where every profile is real.
+            Complete the 5-step verification and join a community where every profile is real.
           </p>
           <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 gap-2" onClick={() => navigate("/onboarding")}>
             <ShieldCheck className="h-5 w-5" /> Begin Verification
