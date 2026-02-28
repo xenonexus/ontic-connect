@@ -109,8 +109,8 @@ const CreatePost = () => {
 
   const canProceed = () => {
     switch (step) {
-      case 1: return !!projectType && (projectType !== "competitive" || !!competitionName.trim());
-      case 2: return !!title.trim() && !!description.trim() && !!domain;
+      case 1: return !!projectType;
+      case 2: return !!title.trim() && !!description.trim() && !!domain && (projectType !== "competitive" || !!competitionName.trim());
       case 3: return teamMembers.length > 0 && teamMembers.every(m => !!m.role && parseInt(m.count) > 0);
       case 4: return !!startDate && !!endDate;
       case 5: return true;
@@ -145,12 +145,18 @@ const CreatePost = () => {
                   </Label>
                 </div>
               </RadioGroup>
+            </div>
+          )}
+
+          {step === 2 && (
+            <div className="space-y-5">
+              <h2 className="font-semibold text-lg">Tell us about your project</h2>
               {projectType === "competitive" && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="space-y-2 pt-2 overflow-hidden"
+                  className="space-y-2 overflow-hidden"
                 >
                   <Label>Competition Name <span className="text-accent">*</span></Label>
                   <Input
@@ -158,16 +164,9 @@ const CreatePost = () => {
                     value={competitionName}
                     onChange={(e) => setCompetitionName(e.target.value)}
                     className="ring-2 ring-accent/30 focus-visible:ring-accent"
-                    autoFocus
                   />
                 </motion.div>
               )}
-            </div>
-          )}
-
-          {step === 2 && (
-            <div className="space-y-5">
-              <h2 className="font-semibold text-lg">Tell us about your project</h2>
               <div className="space-y-2">
                 <Label>Project Title</Label>
                 <Input placeholder="e.g., AI-Powered Study Buddy" value={title} onChange={(e) => setTitle(e.target.value)} />
