@@ -10,7 +10,7 @@ const CompletedProjects = () => {
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">Completed Projects</h1>
       <p className="text-muted-foreground">Projects you've successfully finished.</p>
-      <div className="grid gap-4 max-w-2xl">
+      <div className="grid gap-4">
         {completedProjects.map((p) => (
           <div key={p.name} className="glass-card p-5 flex items-center gap-4">
             <CheckCircle2 className="h-5 w-5 text-success shrink-0" />
