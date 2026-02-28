@@ -12,6 +12,7 @@ import Marketplace from "./pages/Marketplace";
 import CompletedProjects from "./pages/CompletedProjects";
 
 import CreatePost from "./pages/CreatePost";
+import PostView from "./pages/PostView";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="completed" element={<CompletedProjects />} />
             
             <Route path="create-post" element={<CreatePost />} />
+            <Route path="post" element={<PostView />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

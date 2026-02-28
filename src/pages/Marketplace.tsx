@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Filter, Rocket, Users, MapPin, ShieldCheck, ArrowRight, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VerifiedBadge from "@/components/VerifiedBadge";
@@ -69,6 +70,7 @@ const projects = [
 ];
 
 const Marketplace = () => {
+  const navigate = useNavigate();
   const [activeDomain, setActiveDomain] = useState("All");
   const [search, setSearch] = useState("");
 
@@ -116,7 +118,24 @@ const Marketplace = () => {
       {/* Grid */}
       <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
         {filtered.map((p) => (
-          <div key={p.title} className="glass-card p-5 flex flex-col hover:border-accent/20 transition-all group">
+          <div
+            key={p.title}
+            onClick={() => navigate("/dashboard/post", {
+              state: {
+                post: {
+                  title: p.title,
+                  projectType: "personal",
+                  domain: p.domain,
+                  description: p.desc,
+                  creator: p.poster,
+                  institute: p.college,
+                  skills: p.skills,
+                  verified: p.verified,
+                },
+              },
+            })}
+            className="glass-card p-5 flex flex-col hover:border-accent/20 transition-all group cursor-pointer"
+          >
             <div className="flex items-start justify-between mb-3">
               <span className="text-xs font-medium bg-accent/10 text-accent px-2 py-0.5 rounded-md">{p.domain}</span>
               {p.verified && <VerifiedBadge size="sm" />}
