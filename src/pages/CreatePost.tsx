@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Sparkles, Brain } from "lucide-react";
+import { Check, Sparkles, Brain, Plus, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -82,8 +82,23 @@ const CreatePost = () => {
   const [domain, setDomain] = useState("");
 
   // Step 3
-  const [role, setRole] = useState("");
-  const [memberCount, setMemberCount] = useState("1");
+  const [teamMembers, setTeamMembers] = useState<{ role: string; count: string }[]>([
+    { role: "", count: "1" },
+  ]);
+
+  const addTeamMember = () => {
+    setTeamMembers([...teamMembers, { role: "", count: "1" }]);
+  };
+
+  const removeTeamMember = (index: number) => {
+    setTeamMembers(teamMembers.filter((_, i) => i !== index));
+  };
+
+  const updateTeamMember = (index: number, field: "role" | "count", value: string) => {
+    const updated = [...teamMembers];
+    updated[index] = { ...updated[index], [field]: value };
+    setTeamMembers(updated);
+  };
 
   // Step 4
   const [startDate, setStartDate] = useState("");
@@ -93,7 +108,7 @@ const CreatePost = () => {
     switch (step) {
       case 1: return !!projectType;
       case 2: return !!title.trim() && !!description.trim() && !!domain;
-      case 3: return !!role && parseInt(memberCount) > 0;
+      case 3: return teamMembers.length > 0 && teamMembers.every(m => !!m.role && parseInt(m.count) > 0);
       case 4: return !!startDate && !!endDate;
       case 5: return true;
       default: return false;
@@ -155,19 +170,39 @@ const CreatePost = () => {
 
           {step === 3 && (
             <div className="space-y-5">
-              <h2 className="font-semibold text-lg">Team Requirements</h2>
-              <div className="space-y-2">
-                <Label>Role needed</Label>
-                <Select value={role} onValueChange={setRole}>
-                  <SelectTrigger><SelectValue placeholder="Select a role" /></SelectTrigger>
-                  <SelectContent>
-                    {ROLES.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
-                  </SelectContent>
-                </Select>
+              <div className="flex items-center justify-between">
+                <h2 className="font-semibold text-lg">Team Requirements</h2>
+                <Button variant="outline" size="sm" onClick={addTeamMember} className="gap-1">
+                  <Plus className="h-4 w-4" /> Add Role
+                </Button>
               </div>
-              <div className="space-y-2">
-                <Label>How many members?</Label>
-                <Input type="number" min="1" max="10" value={memberCount} onChange={(e) => setMemberCount(e.target.value)} />
+              <div className="space-y-4">
+                {teamMembers.map((member, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="glass-card p-4 space-y-3"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-muted-foreground font-medium">Role {index + 1}</span>
+                      {teamMembers.length > 1 && (
+                        <button onClick={() => removeTeamMember(index)} className="text-muted-foreground hover:text-destructive transition-colors">
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-[1fr_120px] gap-3">
+                      <Select value={member.role} onValueChange={(v) => updateTeamMember(index, "role", v)}>
+                        <SelectTrigger><SelectValue placeholder="Select a role" /></SelectTrigger>
+                        <SelectContent>
+                          {ROLES.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                      <Input type="number" min="1" max="10" value={member.count} onChange={(e) => updateTeamMember(index, "count", e.target.value)} placeholder="Count" />
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           )}
@@ -210,8 +245,10 @@ const CreatePost = () => {
                     <p className="font-medium">{domain}</p>
                   </div>
                   <div className="glass-card p-4 space-y-1">
-                    <p className="text-xs text-muted-foreground">Role Needed</p>
-                    <p className="font-medium">{role} × {memberCount}</p>
+                    <p className="text-xs text-muted-foreground">Team Roles</p>
+                    {teamMembers.map((m, i) => (
+                      <p key={i} className="font-medium">{m.role} × {m.count}</p>
+                    ))}
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
