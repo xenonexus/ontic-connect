@@ -146,14 +146,21 @@ const CreatePost = () => {
                 </div>
               </RadioGroup>
               {projectType === "competitive" && (
-                <div className="space-y-2 pt-2">
-                  <Label>Competition Name</Label>
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="space-y-2 pt-2 overflow-hidden"
+                >
+                  <Label>Competition Name <span className="text-accent">*</span></Label>
                   <Input
                     placeholder="e.g., Smart India Hackathon 2026"
                     value={competitionName}
                     onChange={(e) => setCompetitionName(e.target.value)}
+                    className="ring-2 ring-accent/30 focus-visible:ring-accent"
+                    autoFocus
                   />
-                </div>
+                </motion.div>
               )}
             </div>
           )}
