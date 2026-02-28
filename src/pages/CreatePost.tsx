@@ -237,9 +237,12 @@ const CreatePost = () => {
             </p>
           </div>
 
-          <Button variant="outline" className="w-full mt-4 gap-2 border-accent/30 text-accent hover:bg-accent/10" disabled={!title.trim()}>
-            <Sparkles className="h-4 w-4" /> Mutate with AI
-          </Button>
+          <div className="mt-4 relative">
+            <Input placeholder="Ask NAAN AI anything..." className="pr-10" />
+            <button className="absolute right-2 top-1/2 -translate-y-1/2 text-accent hover:text-accent/80 transition-colors">
+              <Sparkles className="h-4 w-4" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
