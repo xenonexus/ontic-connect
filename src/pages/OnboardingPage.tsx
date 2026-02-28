@@ -88,7 +88,7 @@ const OnboardingPage = () => {
   const lastStep = steps.length - 1;
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="h-screen bg-background flex flex-col overflow-hidden">
       {/* Top bar: back + logo */}
       <div className="flex items-center justify-between px-6 pt-6">
         <button onClick={() => navigate("/")} className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm">
