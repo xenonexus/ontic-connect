@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Check, Sparkles, Brain, Plus, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -71,10 +72,12 @@ const StepIndicator = ({ currentStep }: { currentStep: number }) => (
 );
 
 const CreatePost = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
 
   // Step 1
   const [projectType, setProjectType] = useState("");
+  const [competitionName, setCompetitionName] = useState("");
 
   // Step 2
   const [title, setTitle] = useState("");
@@ -106,7 +109,7 @@ const CreatePost = () => {
 
   const canProceed = () => {
     switch (step) {
-      case 1: return !!projectType;
+      case 1: return !!projectType && (projectType !== "competitive" || !!competitionName.trim());
       case 2: return !!title.trim() && !!description.trim() && !!domain;
       case 3: return teamMembers.length > 0 && teamMembers.every(m => !!m.role && parseInt(m.count) > 0);
       case 4: return !!startDate && !!endDate;
@@ -142,6 +145,16 @@ const CreatePost = () => {
                   </Label>
                 </div>
               </RadioGroup>
+              {projectType === "competitive" && (
+                <div className="space-y-2 pt-2">
+                  <Label>Competition Name</Label>
+                  <Input
+                    placeholder="e.g., Smart India Hackathon 2026"
+                    value={competitionName}
+                    onChange={(e) => setCompetitionName(e.target.value)}
+                  />
+                </div>
+              )}
             </div>
           )}
 
@@ -275,7 +288,25 @@ const CreatePost = () => {
                 Next
               </Button>
             ) : (
-              <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
+              <Button
+                className="bg-accent text-accent-foreground hover:bg-accent/90"
+                onClick={() => navigate("/dashboard/post", {
+                  state: {
+                    post: {
+                      title,
+                      projectType,
+                      competitionName: projectType === "competitive" ? competitionName : undefined,
+                      domain,
+                      description,
+                      creator: "You",
+                      institute: "Your Institute",
+                      teamMembers,
+                      startDate,
+                      endDate,
+                    },
+                  },
+                })}
+              >
                 Publish Post
               </Button>
             )}
