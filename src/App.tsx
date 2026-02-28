@@ -11,6 +11,7 @@ import ProjectMutation from "./pages/ProjectMutation";
 import Marketplace from "./pages/Marketplace";
 import CompletedProjects from "./pages/CompletedProjects";
 import NPTELConnect from "./pages/NPTELConnect";
+import CreatePost from "./pages/CreatePost";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="ideosphere" element={<Marketplace />} />
             <Route path="completed" element={<CompletedProjects />} />
             <Route path="nptel" element={<NPTELConnect />} />
+            <Route path="create-post" element={<CreatePost />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
