@@ -141,8 +141,9 @@ const PostView = () => {
           <Checkbox
             id="terms"
             checked={accepted}
-            onCheckedChange={(v) => setAccepted(v === true)}
+            onCheckedChange={() => { if (!accepted) setAccepted(true); }}
             className="mt-0.5"
+            disabled={accepted}
           />
           <Label htmlFor="terms" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
             I accept the <span className="text-accent font-medium">Terms and Conditions</span> and the{" "}
