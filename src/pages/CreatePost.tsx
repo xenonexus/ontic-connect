@@ -103,7 +103,7 @@ const CreatePost = () => {
   return (
     <div className="flex gap-6 h-full min-h-[calc(100vh-5rem)]">
       {/* Left – Form */}
-      <div className="flex-1 max-w-2xl">
+      <div className="flex-1">
         <h1 className="text-2xl font-bold mb-6">Create Post</h1>
         <StepIndicator currentStep={step} />
 
