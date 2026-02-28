@@ -1,11 +1,8 @@
-import { Camera, CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import { Camera } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { parse, isValid } from "date-fns";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
@@ -46,7 +43,36 @@ const StepPersonalInfo = ({
   university, setUniversity, program, setProgram,
   degreeLevel, setDegreeLevel, year, setYear,
   selectedSkills, toggleSkill,
-}: Props) => (
+}: Props) => {
+  const [birthdayText, setBirthdayText] = useState(
+    birthday ? `${String(birthday.getDate()).padStart(2, '0')}/${String(birthday.getMonth() + 1).padStart(2, '0')}/${birthday.getFullYear()}` : ""
+  );
+
+  const handleBirthdayChange = (raw: string) => {
+    // Only allow digits and slashes
+    let val = raw.replace(/[^\d/]/g, '');
+    // Auto-insert slashes after DD and MM
+    const digits = val.replace(/\//g, '');
+    if (digits.length >= 4) {
+      val = digits.slice(0, 2) + '/' + digits.slice(2, 4) + '/' + digits.slice(4, 8);
+    } else if (digits.length >= 2) {
+      val = digits.slice(0, 2) + '/' + digits.slice(2);
+    }
+    setBirthdayText(val);
+
+    if (val.length === 10) {
+      const parsed = parse(val, 'dd/MM/yyyy', new Date());
+      if (isValid(parsed) && parsed <= new Date() && parsed >= new Date("1900-01-01")) {
+        setBirthday(parsed);
+      } else {
+        setBirthday(undefined);
+      }
+    } else {
+      setBirthday(undefined);
+    }
+  };
+
+  return (
   <div className="space-y-6">
     {/* Profile Picture */}
     <div className="flex flex-col items-center gap-3">
@@ -71,30 +97,12 @@ const StepPersonalInfo = ({
     {/* Birthday */}
     <div className="space-y-1">
       <Label>Birthday</Label>
-      <Popover>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            className={cn(
-              "w-full justify-start text-left font-normal",
-              !birthday && "text-muted-foreground"
-            )}
-          >
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {birthday ? format(birthday, "PPP") : <span>Pick your birthday</span>}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
-          <Calendar
-            mode="single"
-            selected={birthday}
-            onSelect={setBirthday}
-            disabled={(date) => date > new Date() || date < new Date("1900-01-01")}
-            initialFocus
-            className={cn("p-3 pointer-events-auto")}
-          />
-        </PopoverContent>
-      </Popover>
+      <Input
+        placeholder="DD/MM/YYYY"
+        value={birthdayText}
+        onChange={(e) => handleBirthdayChange(e.target.value)}
+        maxLength={10}
+      />
     </div>
 
     {/* Degree Info */}
@@ -155,6 +163,7 @@ const StepPersonalInfo = ({
       <p className="text-xs text-muted-foreground">Select 1–6 skills to continue.</p>
     </div>
   </div>
-);
+  );
+};
 
 export default StepPersonalInfo;
