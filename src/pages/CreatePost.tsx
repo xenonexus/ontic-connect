@@ -101,7 +101,7 @@ const CreatePost = () => {
   };
 
   return (
-    <div className="flex gap-6 h-full">
+    <div className="flex gap-6 h-full min-h-[calc(100vh-5rem)]">
       {/* Left – Form */}
       <div className="flex-1 max-w-2xl">
         <h1 className="text-2xl font-bold mb-6">Create Post</h1>
@@ -222,7 +222,7 @@ const CreatePost = () => {
       </div>
 
       {/* Right – NAAN AI sidebar */}
-      <div className="w-72 shrink-0 hidden lg:block">
+      <div className="w-72 shrink-0 hidden lg:block h-full">
         <div className="glass-card p-5 h-full flex flex-col">
           <div className="flex items-center gap-2 mb-1">
             <Brain className="h-5 w-5 text-accent" />
