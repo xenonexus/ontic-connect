@@ -16,7 +16,7 @@ const features = [{
 }, {
   icon: Users,
   title: "Smart Team Matching",
-  desc: "Find collaborators by verified skills, NPTEL certs, and GitHub activity — not just buzzwords."
+  desc: "Find collaborators by verified skills and GitHub activity — not just buzzwords."
 }, {
   icon: Github,
   title: "GitHub-Native Workflow",
