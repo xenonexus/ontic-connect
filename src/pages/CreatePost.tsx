@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const STEPS = ["Project Type", "Project Details", "Team Requirements", "Timeline"];
+const STEPS = ["Project Type", "Project Details", "Team Requirements", "Timeline", "Review"];
 
 const DOMAINS = [
   "AI / Machine Learning",
@@ -82,7 +82,6 @@ const CreatePost = () => {
   const [domain, setDomain] = useState("");
 
   // Step 3
-  const [needsMembers, setNeedsMembers] = useState("");
   const [role, setRole] = useState("");
   const [memberCount, setMemberCount] = useState("1");
 
@@ -94,8 +93,9 @@ const CreatePost = () => {
     switch (step) {
       case 1: return !!projectType;
       case 2: return !!title.trim() && !!description.trim() && !!domain;
-      case 3: return needsMembers === "no" || (needsMembers === "yes" && !!role && parseInt(memberCount) > 0);
+      case 3: return !!role && parseInt(memberCount) > 0;
       case 4: return !!startDate && !!endDate;
+      case 5: return true;
       default: return false;
     }
   };
@@ -155,35 +155,20 @@ const CreatePost = () => {
 
           {step === 3 && (
             <div className="space-y-5">
-              <h2 className="font-semibold text-lg">Do you require members for any specific role?</h2>
-              <RadioGroup value={needsMembers} onValueChange={setNeedsMembers} className="space-y-3">
-                <div className="flex items-center space-x-3 glass-card p-4 cursor-pointer hover:border-accent/30 transition-all">
-                  <RadioGroupItem value="yes" id="yes-members" />
-                  <Label htmlFor="yes-members" className="cursor-pointer">Yes, I need team members</Label>
-                </div>
-                <div className="flex items-center space-x-3 glass-card p-4 cursor-pointer hover:border-accent/30 transition-all">
-                  <RadioGroupItem value="no" id="no-members" />
-                  <Label htmlFor="no-members" className="cursor-pointer">No, I'm working solo</Label>
-                </div>
-              </RadioGroup>
-
-              {needsMembers === "yes" && (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-4 pt-2">
-                  <div className="space-y-2">
-                    <Label>Role needed</Label>
-                    <Select value={role} onValueChange={setRole}>
-                      <SelectTrigger><SelectValue placeholder="Select a role" /></SelectTrigger>
-                      <SelectContent>
-                        {ROLES.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>How many members?</Label>
-                    <Input type="number" min="1" max="10" value={memberCount} onChange={(e) => setMemberCount(e.target.value)} />
-                  </div>
-                </motion.div>
-              )}
+              <h2 className="font-semibold text-lg">Team Requirements</h2>
+              <div className="space-y-2">
+                <Label>Role needed</Label>
+                <Select value={role} onValueChange={setRole}>
+                  <SelectTrigger><SelectValue placeholder="Select a role" /></SelectTrigger>
+                  <SelectContent>
+                    {ROLES.map((r) => <SelectItem key={r} value={r}>{r}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>How many members?</Label>
+                <Input type="number" min="1" max="10" value={memberCount} onChange={(e) => setMemberCount(e.target.value)} />
+              </div>
             </div>
           )}
 
@@ -203,17 +188,57 @@ const CreatePost = () => {
             </div>
           )}
 
+          {step === 5 && (
+            <div className="space-y-5">
+              <h2 className="font-semibold text-lg">Review Your Post</h2>
+              <div className="space-y-4">
+                <div className="glass-card p-4 space-y-1">
+                  <p className="text-xs text-muted-foreground">Project Type</p>
+                  <p className="font-medium capitalize">{projectType}</p>
+                </div>
+                <div className="glass-card p-4 space-y-1">
+                  <p className="text-xs text-muted-foreground">Title</p>
+                  <p className="font-medium">{title}</p>
+                </div>
+                <div className="glass-card p-4 space-y-1">
+                  <p className="text-xs text-muted-foreground">Description</p>
+                  <p className="text-sm">{description}</p>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="glass-card p-4 space-y-1">
+                    <p className="text-xs text-muted-foreground">Domain</p>
+                    <p className="font-medium">{domain}</p>
+                  </div>
+                  <div className="glass-card p-4 space-y-1">
+                    <p className="text-xs text-muted-foreground">Role Needed</p>
+                    <p className="font-medium">{role} × {memberCount}</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="glass-card p-4 space-y-1">
+                    <p className="text-xs text-muted-foreground">Start Date</p>
+                    <p className="font-medium">{startDate}</p>
+                  </div>
+                  <div className="glass-card p-4 space-y-1">
+                    <p className="text-xs text-muted-foreground">End Date</p>
+                    <p className="font-medium">{endDate}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Navigation */}
           <div className="flex justify-between mt-8">
             <Button variant="outline" onClick={() => setStep(step - 1)} disabled={step === 1}>
               Back
             </Button>
-            {step < 4 ? (
+            {step < 5 ? (
               <Button className="bg-accent text-accent-foreground hover:bg-accent/90" onClick={() => setStep(step + 1)} disabled={!canProceed()}>
                 Next
               </Button>
             ) : (
-              <Button className="bg-accent text-accent-foreground hover:bg-accent/90" disabled={!canProceed()}>
+              <Button className="bg-accent text-accent-foreground hover:bg-accent/90">
                 Publish Post
               </Button>
             )}
