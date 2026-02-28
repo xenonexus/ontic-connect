@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ShieldCheck, ArrowRight, Github, Users, Zap, Lock, GraduationCap, Sparkles, Globe, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, ArrowRight, Github, Users, Zap, Lock, GraduationCap, Sparkles, Globe, CheckCircle2, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 const features = [{
   icon: ShieldCheck,
   title: "University-Only Access",
@@ -35,6 +38,9 @@ const trustStats = [{
 const LandingPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [loginId, setLoginId] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginOpen, setLoginOpen] = useState(false);
   const isEduEmail = email.endsWith(".edu") || email.endsWith(".edu.in") || email.endsWith(".ac.in");
   return <div className="min-h-screen bg-background">
       {/* Nav */}
@@ -51,9 +57,55 @@ const LandingPage = () => {
             <span className="cursor-pointer hover:text-foreground transition-colors">Trust Protocol</span>
             <span className="cursor-pointer hover:text-foreground transition-colors">For Universities</span>
           </div>
-          <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90" onClick={() => navigate("/onboarding")}>
-            Get Verified
-          </Button>
+          <div className="flex items-center gap-2">
+            <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
+              <DialogTrigger asChild>
+                <Button size="sm" variant="ghost" className="gap-1.5">
+                  <LogIn className="h-4 w-4" /> Login
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Login to ONTIC</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 pt-2">
+                  <div className="space-y-2">
+                    <Label htmlFor="login-id">Username or Email</Label>
+                    <Input
+                      id="login-id"
+                      placeholder="Enter username or email"
+                      value={loginId}
+                      onChange={(e) => setLoginId(e.target.value)}
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="login-password">Password</Label>
+                    <Input
+                      id="login-password"
+                      type="password"
+                      placeholder="Enter your password"
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                    />
+                  </div>
+                  <Button
+                    className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+                    onClick={() => {
+                      // TODO: Connect to backend auth
+                      navigate("/dashboard");
+                      setLoginOpen(false);
+                    }}
+                    disabled={!loginId || !loginPassword}
+                  >
+                    Sign In
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+            <Button size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90" onClick={() => navigate("/onboarding")}>
+              Get Verified
+            </Button>
+          </div>
         </div>
       </nav>
 
