@@ -163,7 +163,6 @@ const CreatePost = () => {
                     placeholder="e.g., Smart India Hackathon 2026"
                     value={competitionName}
                     onChange={(e) => setCompetitionName(e.target.value)}
-                    className="ring-2 ring-accent/30 focus-visible:ring-accent"
                   />
                 </motion.div>
               )}
