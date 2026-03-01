@@ -71,7 +71,7 @@ const DashboardHome = () => {
                       <div className="h-7 w-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white shrink-0 bg-accent">
                         ✓
                       </div>
-                      <div className="w-0.5 h-5 bg-accent" />
+                      <div className="w-0.5 h-10 bg-accent/40" />
                     </div>
                     <div>
                       <span className="text-xs text-muted-foreground">Start</span>
@@ -79,13 +79,9 @@ const DashboardHome = () => {
                     </div>
                   </div>
 
-                  {/* Blank space between */}
-                  <div className="w-0.5 h-16 bg-muted-foreground/20" />
-
                   {/* End */}
                   <div className="flex items-center gap-3 w-full">
                     <div className="flex flex-col items-center">
-                      <div className="w-0.5 h-5 bg-muted-foreground/30" />
                       <div className="h-7 w-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white shrink-0 bg-muted-foreground/40">
                         2
                       </div>
@@ -211,7 +207,7 @@ const DashboardHome = () => {
               <Button
                 size="sm"
                 className="bg-accent text-accent-foreground hover:bg-accent/90 gap-1 w-full mt-auto"
-                onClick={() => navigate("/dashboard/mutation")}>
+                onClick={() => navigate("/dashboard/create-post")}>
 
                 <Sparkles className="h-3 w-3" /> Start Mutating
               </Button>
