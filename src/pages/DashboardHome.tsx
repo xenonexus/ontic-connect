@@ -5,11 +5,8 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { LineChart, Line, BarChart, Bar, ResponsiveContainer } from "recharts";
 
 const timelineSteps = [
-{ label: "Start", done: true },
-{ label: "Milestone 1", done: true },
-{ label: "Milestone 2", done: true },
-{ label: "Milestone 3", done: false },
-{ label: "End", done: false }];
+{ label: "Start", date: "Jan 15", done: true },
+{ label: "End", date: "Apr 30", done: false }];
 
 
 const ratingData = [
@@ -68,22 +65,36 @@ const DashboardHome = () => {
               <div className="flex-1 flex flex-col justify-center">
                 <p className="text-xs font-medium text-muted-foreground mb-3">Timeline</p>
                 <div className="relative flex flex-col items-center gap-0">
-                  {timelineSteps.map((step, i) =>
-                  <div key={step.label} className="flex items-center gap-3 w-full">
-                      <div className="flex flex-col items-center">
-                        {i > 0 &&
-                      <div className={`w-0.5 h-5 ${timelineSteps[i - 1].done ? "bg-accent" : "bg-muted-foreground/30"}`} />
-                      }
-                        <div className={`h-7 w-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white shrink-0 ${step.done ? "bg-accent" : "bg-muted-foreground/40"}`}>
-                          {step.done ? "✓" : i + 1}
-                        </div>
-                        {i < timelineSteps.length - 1 &&
-                      <div className={`w-0.5 h-5 ${step.done ? "bg-accent" : "bg-muted-foreground/30"}`} />
-                      }
+                  {/* Start */}
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="flex flex-col items-center">
+                      <div className="h-7 w-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white shrink-0 bg-accent">
+                        ✓
                       </div>
-                      <span className="text-xs text-muted-foreground">{step.label}</span>
+                      <div className="w-0.5 h-5 bg-accent" />
                     </div>
-                  )}
+                    <div>
+                      <span className="text-xs text-muted-foreground">Start</span>
+                      <p className="text-[10px] text-accent font-medium">{timelineSteps[0].date}</p>
+                    </div>
+                  </div>
+
+                  {/* Blank space between */}
+                  <div className="w-0.5 h-16 bg-muted-foreground/20" />
+
+                  {/* End */}
+                  <div className="flex items-center gap-3 w-full">
+                    <div className="flex flex-col items-center">
+                      <div className="w-0.5 h-5 bg-muted-foreground/30" />
+                      <div className="h-7 w-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white shrink-0 bg-muted-foreground/40">
+                        2
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-xs text-muted-foreground">End</span>
+                      <p className="text-[10px] text-muted-foreground font-medium">{timelineSteps[1].date}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
