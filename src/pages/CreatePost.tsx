@@ -85,21 +85,24 @@ const CreatePost = () => {
   const [domain, setDomain] = useState("");
 
   // Step 3
-  const [teamMembers, setTeamMembers] = useState<{ role: string; count: string }[]>([
-    { role: "", count: "1" },
+  const [teamMembers, setTeamMembers] = useState<{ role: string; customRole: string; count: string }[]>([
+    { role: "", customRole: "", count: "1" },
   ]);
 
   const addTeamMember = () => {
-    setTeamMembers([...teamMembers, { role: "", count: "1" }]);
+    setTeamMembers([...teamMembers, { role: "", customRole: "", count: "1" }]);
   };
 
   const removeTeamMember = (index: number) => {
     setTeamMembers(teamMembers.filter((_, i) => i !== index));
   };
 
-  const updateTeamMember = (index: number, field: "role" | "count", value: string) => {
+  const updateTeamMember = (index: number, field: "role" | "customRole" | "count", value: string) => {
     const updated = [...teamMembers];
     updated[index] = { ...updated[index], [field]: value };
+    if (field === "role" && value !== "Other") {
+      updated[index].customRole = "";
+    }
     setTeamMembers(updated);
   };
 
@@ -111,7 +114,7 @@ const CreatePost = () => {
     switch (step) {
       case 1: return !!projectType;
       case 2: return !!title.trim() && !!description.trim() && !!domain && (projectType !== "competitive" || !!competitionName.trim());
-      case 3: return teamMembers.length > 0 && teamMembers.every(m => !!m.role && parseInt(m.count) > 0);
+      case 3: return teamMembers.length > 0 && teamMembers.every(m => (m.role === "Other" ? !!m.customRole.trim() : !!m.role) && parseInt(m.count) > 0);
       case 4: return !!startDate && !!endDate;
       case 5: return true;
       default: return false;
@@ -219,6 +222,13 @@ const CreatePost = () => {
                       </Select>
                       <Input type="number" min="1" max="10" value={member.count} onChange={(e) => updateTeamMember(index, "count", e.target.value)} placeholder="Count" />
                     </div>
+                    {member.role === "Other" && (
+                      <Input
+                        placeholder="Enter custom role name"
+                        value={member.customRole}
+                        onChange={(e) => updateTeamMember(index, "customRole", e.target.value)}
+                      />
+                    )}
                   </motion.div>
                 ))}
               </div>
@@ -265,7 +275,7 @@ const CreatePost = () => {
                   <div className="glass-card p-4 space-y-1">
                     <p className="text-xs text-muted-foreground">Team Roles</p>
                     {teamMembers.map((m, i) => (
-                      <p key={i} className="font-medium">{m.role} × {m.count}</p>
+                      <p key={i} className="font-medium">{m.role === "Other" ? m.customRole : m.role} × {m.count}</p>
                     ))}
                   </div>
                 </div>
